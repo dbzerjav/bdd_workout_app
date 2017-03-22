@@ -24,7 +24,7 @@
 #  * zeus: 'zeus rspec' (requires the server to be started separately)
 #  * 'just' rspec: 'rspec'
 
-guard :rspec, cmd: "bundle/rspec" do
+guard :rspec, cmd: "bin/rspec" do
   require "guard/rspec/dsl"
   dsl = Guard::RSpec::Dsl.new(self)
 
@@ -54,9 +54,9 @@ guard :rspec, cmd: "bundle/rspec" do
   end
   
   #make guard able to use feature specs
-  watch(%r{^app/models/(.+)\.rb$}) { |m| "spec/features/#{m[1]}s" }
-  watch(%r{^app/controllers/(.+)_(controller)\.rb$}) { |m| "spec/features/#{m[1]}" }
-  watch(rails.routes)          { "#{rspec.spec_dir}" }
+  watch(%r{^app/models/(.+)\.rb$})                    { |m| "spec/features/#{m[1]}s" }
+  watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { |m| "spec/features/#{m[1]}" }
+  watch(rails.routes)                                 { "#{rspec.spec_dir}" }
 
   # Rails config changes
   watch(rails.spec_helper)     { rspec.spec_dir }
@@ -64,9 +64,8 @@ guard :rspec, cmd: "bundle/rspec" do
   watch(rails.app_controller)  { "#{rspec.spec_dir}/controllers" }
 
   # Capybara features specs
-  watch(rails.view_dirs)     { |m| rspec.spec.call("features/#{m[1]}") }
+  watch(rails.view_dirs)     { |m| "spec/features/#{m[1]}" }
   watch(rails.layouts)       { |m| rspec.spec.call("features/#{m[1]}") }
-  watch(rails.view_dirs) { |m| "spec/features/#{m[1]}" }
   
   # Turnip features and steps
   watch(%r{^spec/acceptance/(.+)\.feature$})
