@@ -5,7 +5,7 @@ RSpec.feature "Editing an exercise" do
   before do
     @john = User.create(email: "john@example.com", password: "password" )
     
-    @john_exercise = @john.exercises.create!(duration_in_min: 20,
+    @john_exercise = @john.exercises.create!(duration_in_min: 27,
                                   workout: "My body building activity",
                                   workout_date: Date.today)
     login_as(@john)
@@ -26,7 +26,7 @@ RSpec.feature "Editing an exercise" do
     
     expect(page).to have_content("Exercise has been updated")
     expect(page).to have_content(70)
-    expect(page).not_to have_content(20)
+    expect(page).not_to have_content(27)
     
   end
   
@@ -36,7 +36,7 @@ RSpec.feature "Editing an exercise" do
     click_link "My Lounge"
     
     path = "/users/#{@john.id}/exercises/#{@john_exercise.id}/edit"
-    link = "a[href=\'#{path}\]"
+    link = "a[href=\'#{path}\']"
     find(link).click
     
     fill_in "Duration", with: ""
