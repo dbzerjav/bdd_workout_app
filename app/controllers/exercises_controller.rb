@@ -38,6 +38,7 @@ class ExercisesController < ApplicationController
       render :edit
     end
   end
+  
     
   private
   
