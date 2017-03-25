@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.feature "Hiding signin and signout links when approiate" do
   before do
-    @john = User.create!(email: "john@example.com", password: "password" )
+    @john = User.create!(first_name: "John", last_name: "Doe", email: "john@example.com", password: "password" )
   end
   
   scenario "while signed in" do
