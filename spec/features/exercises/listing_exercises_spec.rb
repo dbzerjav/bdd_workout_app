@@ -3,7 +3,16 @@ require "rails_helper"
 RSpec.feature "Listing exercises" do
   
   before do
-    @john = User.create!(first_name: "John", last_name: "Doe", email: "john@example.com", password: "password" )
+    @john = User.create(first_name: "John", 
+                        last_name: "Doe", 
+                        email: "john@example.com", 
+                        password: "password" )
+    
+    @jim = User.create(first_name: "Jim", 
+                       last_name: "Bee", 
+                       email: "jim@example.com", 
+                       password: "password" )
+    
     login_as(@john)
     
     @e1 = @john.exercises.create(duration_in_min: 20,
@@ -17,6 +26,8 @@ RSpec.feature "Listing exercises" do
     @e3 = @john.exercises.create(duration_in_min: 35,
                                   workout: "Spinning",
                                   workout_date: 9.days.ago)
+    
+    @following = Friendship.create(user: @john, friend: @jim)
                                   
   end
   
@@ -48,5 +59,14 @@ RSpec.feature "Listing exercises" do
     click_link "My Lounge"
     
     expect(page).to have_content("No Workouts Yet")
+  end
+  
+  scenario "shows a list of user's friends" do
+    visit "/"
+    
+    click_link "My Lounge"
+    expect(page).to have_content("My Friends")
+    expect(page).to have_link(@jim.full_name)
+    expect(page).to have_link("Unfollow")
   end
 end
