@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "Folloing friends" do
+RSpec.feature "Follwoing friends" do
   before do
     @john = User.create(first_name: "John", 
                         last_name: "Doe", 
