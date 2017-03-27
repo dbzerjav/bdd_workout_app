@@ -14,10 +14,12 @@
     
     <tbody>
       <% @exercises.each do |exercise| %>
-        <tr><%= exercise.duration_in_min %></tr>
-        <tr><%= truncate(exercise.workout, length: 100) %></tr>
-        <tr><%= exercise.workout_date %></tr>
-        <% end %>
+        <tr>
+          <td><%= exercise.duration_in_min %></td>
+          <td><%= truncate(exercise.workout, length: 100) %></td>
+          <td><%= exercise.workout_date %></td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
   

@@ -47,26 +47,26 @@
       
       <div class="col-md-2" id="followers">
         <% @followers.each do |follower| %>
-          <%= link_to follower.user.full_name, user_exercises_path(current_user, roomId: follower.user.room.id), class: "followers" %>
+          <%= link_to follower.user.full_name, user_exercises_path(current_user, roomId: follower.user.room.id), class: 'followers' %>
           <br />
         <% end %>
       </div>
-      <div class="col-md-10" id:="messages-box">
-        <div id="chatbox" data-channel="rooms" data-room-id=<% current_room.id %>>
-          <% @messages.each do |message| %>
-            <%= render partial: "shared/message", locals: {message: message } %>
-          <% end %>
-        </div>
       
-        <div id="form-box">
-          <%= form_for @message do |f| %>
-            <%= f.text_field :body, id: "message-field", class: "form-control pull-left" %>
-            <%= f.submit "Post", class: "btn btn-default", id: "post-btn" %>
-          <% end %>
-        </div>
+      <div class="col-md-10" id="messages-box">
+        <div id="chat-box" data-channel="rooms" data-room-id=<%= current_room.id %>>
+        <% @messages.each do |message| %>
+          <%= render partial: 'shared/message', locals: { message: message } %>
+        <% end %>
+      </div>
+      
+      <div id="form-box">
+        <%= form_for @message, remote: true do |f| %>
+          <%= f.text_field :body, id: 'message-field', class: 'form-control pull-left' %>
+          <%= f.submit 'Post', class: 'btn btn-default', id: 'post-btn' %>
+        <% end %>
+      </div>
       </div>
     </div>
-      
     <h1 class="text-center">My Friends</h1>
     
     <% @friends.each do |friend| %>
@@ -77,7 +77,7 @@
       <div class="col-md-3">
         <div class="btn-unfollow">
           <%= link_to "Unfollow", friendship_path(current_user.current_friendship(friend)), 
-              method: :delete, data: { confrim: "Are you sure?" },
+              method: :delete, data: { confirm: "Are you sure?" },
               class: "btn btn-success link" %>
         </div>
       </div>

@@ -61,7 +61,7 @@ before_action :set_exercise, only: [:show, :edit, :update, :destroy]
   
   def set_current_room
     if params[:roomId]
-      @room.find_by(id: params[:roomId])
+      @room = Room.find_by(id: params[:roomId])
     else
       @room = current_user.room
     end
